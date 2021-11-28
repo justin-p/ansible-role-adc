@@ -2,7 +2,7 @@ galaxy_info:
   role_name: adc
   namespace: justin_p
   author: Justin Perdok
-  description: Setup a Additional Domain Controller and Active Directory on a Windows Server.
+  description: Setup a Additional Domain Controller in a existing Active Directory.
   company: Orange Cyberdefense
   license: MIT
   min_ansible_version: 2.9
