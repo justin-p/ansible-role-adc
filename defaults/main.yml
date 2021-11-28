@@ -1,0 +1,17 @@
+---
+# defaults file for ansible-role-adc
+adc_administrator_username: Administrator
+adc_administrator_password: P@ssw0rd!
+adc_dns_nics: "*"
+adc_dns_servers: "{{ ansible_host }}"
+adc_domain: ad.example.test
+adc_domain_safe_mode_password: P@ssw0rd!
+adc_required_psmodules: [xPSDesiredStateConfiguration, NetworkingDsc, ComputerManagementDsc, ActiveDirectoryDsc] 
+adc_required_features: ["AD-domain-services", "DNS"]
+adc_desired_dns_forwarders: ["8.8.8.8", "8.8.4.4"]
+adc_state: domain_controller
+adc_install_dns: yes
+adc_read_only: no
+adc_database_path: "%SYSTEMROOT%\\NTDS"
+adc_domain_log_path: "%SYSTEMROOT%\\NTDS"
+adc_sysvol_path: "%SYSTEMROOT%\\SYSVOL"

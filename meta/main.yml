@@ -1,0 +1,13 @@
+galaxy_info:
+  role_name: adc
+  namespace: justin_p
+  author: Justin Perdok
+  description: Setup a Additional Domain Controller and Active Directory on a Windows Server.
+  company: Orange Cyberdefense
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+  - name: Windows
+    versions:
+     - 2019
+  galaxy_tags: ["activedirectory", "ad", "domaincontroller", "adc", "RODC"]
