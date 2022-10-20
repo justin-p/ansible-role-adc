@@ -1,7 +1,7 @@
 ---
 # tasks file for ansible-adc
 - name: Assert mandatory variables have been set
-  assert: { that: "{{ item }} is defined" }
+  ansible.builtin.assert: { that: "{{ item }} is defined" }
   with_items:
     - adc_administrator_username
     - adc_administrator_password
@@ -20,34 +20,34 @@
     - adc_sysvol_path
 
 - name: Ensure the local user {{ adc_administrator_username }} has the password specified for the domain administrator
-  win_user:
+  ansible.windows.win_user:
     name: "{{ adc_administrator_username }}"
     password: "{{ adc_administrator_password }}"
     groups: administrators
 
 - name: Ensure ansible_password matches the new password
-  set_fact:
+  ansible.windows.ansible.builtin.set_fact:
     ansible_password: "{{ adc_administrator_password }}"
 
 - name: Ensure upstream DNS servers is to {{ adc_dns_servers }}
-  win_dns_client:
+  ansible.windows.win_dns_client:
    adapter_names: "{{ adc_dns_nics }}"
    ipv4_addresses: "{{ adc_dns_servers }}"
 
 - name: Ensure that required DSC resources and Powershell Modules are present
-  win_psmodule:
+  ansible.windows.win_psmodule:
     name: "{{ item }}"
     state: present
   with_items: "{{ adc_required_psmodules }}"
 
 - name: Ensure required Windows Features are installed
-  win_feature:
+  ansible.windows.win_feature:
     name: '{{ item }}'
     include_management_tools: yes
   with_items: "{{ adc_required_features }}"
 
 - name: Promote server to Domain Controller
-  win_domain_controller :
+  ansible.windows.win_domain_controller :
     dns_domain_name: "{{ adc_domain }}"
     domain_admin_user: "{{ adc_administrator_username }}@{{ adc_domain }}"
     domain_admin_password: "{{ adc_administrator_password }}"
@@ -63,15 +63,15 @@
   when: not ansible_windows_domain_member
 
 - name: Force all notified handlers to run at this point, not waiting for normal sync points
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Ensure a Domain Controller is available in the domain
-  win_dsc:
+  ansible.windows.win_dsc:
     resource_name: WaitForADDomain
     DomainName: "{{ adc_domain }}"
 
 - name: Ensure DNS Forwarders are set to desired forwarders
-  win_shell: |
+  ansible.windows.win_shell: |
     Try {
       $CurrentForwarders = $([Array]$(Get-DnsServerForwarder).IPAddress.IPAddressToString)
       $DesiredForwarders = ConvertFrom-JSON '{{ adc_desired_dns_forwarders | to_json }}'
