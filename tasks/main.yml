@@ -35,7 +35,7 @@
    ipv4_addresses: "{{ adc_dns_servers }}"
 
 - name: Ensure that required DSC resources and Powershell Modules are present
-  ansible.windows.win_psmodule:
+  community.windows.win_psmodule:
     name: "{{ item }}"
     accept_license: true
     state: present
