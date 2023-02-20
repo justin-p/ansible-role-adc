@@ -26,7 +26,7 @@
     groups: administrators
 
 - name: Ensure ansible_password matches the new password
-  ansible.windows.ansible.builtin.set_fact:
+  ansible.builtin.set_fact:
     ansible_password: "{{ adc_administrator_password }}"
 
 - name: Ensure upstream DNS servers is to {{ adc_dns_servers }}
