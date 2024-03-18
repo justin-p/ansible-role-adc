@@ -1,23 +1,23 @@
 ---
 # tasks file for ansible-adc
 - name: Assert mandatory variables have been set
-  ansible.builtin.assert: { that: "{{ item }} is defined" }
-  with_items:
-    - adc_administrator_username
-    - adc_administrator_password
-    - adc_dns_nics
-    - adc_dns_servers
-    - adc_domain
-    - adc_domain_safe_mode_password
-    - adc_required_psmodules
-    - adc_required_features
-    - adc_desired_dns_forwarders
-    - adc_state
-    - adc_install_dns
-    - adc_read_only
-    - adc_database_path
-    - adc_domain_log_path
-    - adc_sysvol_path
+  ansible.builtin.assert:
+    thats:
+      - adc_administrator_username
+      - adc_administrator_password
+      - adc_dns_nics
+      - adc_dns_servers
+      - adc_domain
+      - adc_domain_safe_mode_password
+      - adc_required_psmodules
+      - adc_required_features
+      - adc_desired_dns_forwarders
+      - adc_state
+      - adc_install_dns
+      - adc_read_only
+      - adc_database_path
+      - adc_domain_log_path
+      - adc_sysvol_path
 
 - name: Ensure the local user {{ adc_administrator_username }} has the password specified for the domain administrator
   ansible.windows.win_user:
